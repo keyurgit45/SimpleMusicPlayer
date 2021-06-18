@@ -24,12 +24,6 @@ class _MusicTracksState extends State<MusicTracks> {
     songs = await audioQuery.getSongs();
     songslist = songs;
     print(songs.length);
-
-    // for (var i = 0; i < songslist.length; i++) {
-    //   if (songslist[i].title.contains('@') | songslist[i].title.contains('+')) {
-    //     songs.remove(songslist[i]);
-    //   }
-    // }
     songs.removeWhere((element) =>
         (element.title.contains('+') | element.title.contains('@')));
 

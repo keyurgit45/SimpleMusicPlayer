@@ -23,7 +23,7 @@ class ListViewWidget extends StatelessWidget {
                     children: [
                       ClipRRect(
                         borderRadius: BorderRadius.circular(12),
-                        child: Image.network(
+                        child: Image.asset(
                           RecentlyPlayed().recents[e]['imgurl'].toString(),
                           height: 50,
                           width: 50,

@@ -1,6 +1,3 @@
-import 'dart:io';
-import 'dart:math';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 // ignore: import_of_legacy_library_into_null_safe
@@ -39,7 +36,6 @@ class MyMusicPlayerState extends State<MyMusicPlayer> {
   void setSong(SongInfo songInfo) async {
     // widget.songs[widget.currentIndex] = songInfo;
     currentVolume = player.volume.toInt() * 10;
-    print(currentVolume);
     await player.setUrl(songInfo.uri);
     currentValue = minimumValue;
     maximumValue = player.duration!.inMilliseconds.toDouble();
@@ -49,15 +45,12 @@ class MyMusicPlayerState extends State<MyMusicPlayer> {
     });
     isPlaying = false;
     changeStatus();
-    // player.setLoopMode(LoopMode.one);
-    // player.setLoopMode(LoopMode.off);
 
     player.positionStream.listen((duration) async {
       currentValue = duration.inMilliseconds.toDouble();
       if (currentValue >= maximumValue) {
         currentValue = 0.0;
         await player.stop();
-
         changeTrack(true, currentIndex);
       }
       if (mounted) {
@@ -104,8 +97,6 @@ class MyMusicPlayerState extends State<MyMusicPlayer> {
     print("total" + songs.length.toString());
     print("current index after changing song" + currentIndex.toString());
     setState(() {});
-    // await player.setVolume(1.0);
-    // key.currentState!.setSong(songs[currentIndex]);
   }
 
   void initState() {
@@ -120,7 +111,6 @@ class MyMusicPlayerState extends State<MyMusicPlayer> {
 
   @override
   Widget build(BuildContext context) {
-    // print("current index " + currentIndex.toString());
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -133,12 +123,6 @@ class MyMusicPlayerState extends State<MyMusicPlayer> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // CircleAvatar(
-            //   backgroundImage: NetworkImage(
-            //       RecentlyPlayed().recents[currentIndex]['imgurl'].toString()),
-            //   radius: 130,
-            // ),
-
             SingleCircularSlider(
               10,
               player.volume.toInt() * 10,
@@ -159,7 +143,6 @@ class MyMusicPlayerState extends State<MyMusicPlayer> {
                     AssetImage(Constants().images[currentIndex % 7]),
               ),
             ),
-
             SizedBox(
               height: 40,
             ),

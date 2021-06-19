@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 // import 'package:musicui/screens/mymusicplayer.dart';
-import 'package:musicui/screens/tracks copy.dart';
+import 'package:musicui/screens/tracks.dart';
 import 'package:musicui/widgets/listviewwidget.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -44,10 +44,8 @@ class HomeScreen extends StatelessWidget {
                           elevation: 1.0,
                           primary: Colors.white,
                         ),
-                        onPressed: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => MusicTracks())),
+                        onPressed: () =>
+                            Navigator.of(context).push(_createRoute()),
                         child: Text("Listen"),
                       ),
                       left: 20,
@@ -70,4 +68,22 @@ class HomeScreen extends StatelessWidget {
           )),
     );
   }
+}
+
+Route _createRoute() {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => MusicTracks(),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      var begin = Offset(0.0, 1.0);
+      var end = Offset.zero;
+      var curve = Curves.easeOut;
+
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+
+      return SlideTransition(
+        position: animation.drive(tween),
+        child: child,
+      );
+    },
+  );
 }
